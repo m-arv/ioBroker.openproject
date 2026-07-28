@@ -9,7 +9,7 @@
   "contributors": [],
   "homepage": "https://github.com/m-arv/ioBroker.openproject",
   "license": "MIT",
-  "keywords": ["openproject", "project management", "work packages", "tasks", "iobroker"],
+  "keywords": ["openproject", "project management", "work packages", "tasks", "ioBroker"],
   "repository": {
     "type": "git",
     "url": "https://github.com/m-arv/ioBroker.openproject.git"
