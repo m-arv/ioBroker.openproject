@@ -1,0 +1,209 @@
+{
+    "i18n": true,
+    "type": "tabs",
+    "items": {
+        "connectionTab": {
+            "type": "panel",
+            "label": "connectionTab",
+            "items": {
+                "url": {
+                    "type": "text",
+                    "label": "url",
+                    "help": "urlHelp",
+                    "validator": "!data.url || /^https?:\\/\\/.+/.test(data.url)",
+                    "validatorErrorText": "urlInvalid",
+                    "validatorNoSaveOnError": true,
+                    "newLine": true,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 8
+                },
+                "apiToken": {
+                    "type": "password",
+                    "label": "apiToken",
+                    "help": "apiTokenHelp",
+                    "repeat": false,
+                    "newLine": true,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 8
+                },
+                "ignoreCertificateErrors": {
+                    "type": "checkbox",
+                    "label": "ignoreCertificateErrors",
+                    "help": "ignoreCertificateErrorsHelp",
+                    "newLine": true,
+                    "xs": 12
+                },
+                "ignoreCertificateErrorsWarning": {
+                    "type": "staticText",
+                    "text": "ignoreCertificateErrorsWarning",
+                    "hidden": "!data.ignoreCertificateErrors",
+                    "style": {
+                        "color": "#c62828",
+                        "fontWeight": "bold"
+                    },
+                    "newLine": true,
+                    "xs": 12
+                },
+                "requestTimeout": {
+                    "type": "number",
+                    "label": "requestTimeout",
+                    "help": "requestTimeoutHelp",
+                    "min": 1,
+                    "max": 300,
+                    "newLine": true,
+                    "xs": 12,
+                    "sm": 6,
+                    "md": 3
+                },
+                "testConnectionHint": {
+                    "type": "staticText",
+                    "text": "testConnectionHint",
+                    "newLine": true,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 10
+                },
+                "testConnection": {
+                    "type": "sendTo",
+                    "label": "testConnection",
+                    "command": "testConnection",
+                    "jsonData": "{\"url\": \"${data.url}\", \"apiToken\": \"${data.apiToken}\", \"ignoreCertificateErrors\": ${!!data.ignoreCertificateErrors}, \"requestTimeout\": ${data.requestTimeout || 15}}",
+                    "showProcess": true,
+                    "newLine": true,
+                    "xs": 12,
+                    "sm": 6,
+                    "md": 3
+                }
+            }
+        },
+        "queryTab": {
+            "type": "panel",
+            "label": "queryTab",
+            "items": {
+                "scheduleHint": {
+                    "type": "staticText",
+                    "text": "scheduleHint",
+                    "newLine": true,
+                    "xs": 12
+                },
+                "warnDays": {
+                    "type": "number",
+                    "label": "warnDays",
+                    "help": "warnDaysHelp",
+                    "min": 0,
+                    "max": 365,
+                    "newLine": true,
+                    "xs": 12,
+                    "sm": 6,
+                    "md": 3
+                },
+                "onlyAssignedToMe": {
+                    "type": "checkbox",
+                    "label": "onlyAssignedToMe",
+                    "help": "onlyAssignedToMeHelp",
+                    "newLine": true,
+                    "xs": 12
+                },
+                "projectsHint": {
+                    "type": "staticText",
+                    "text": "projectsHint",
+                    "newLine": true,
+                    "xs": 12
+                },
+                "projects": {
+                    "type": "selectSendTo",
+                    "label": "projects",
+                    "help": "projectsHelp",
+                    "command": "getProjects",
+                    "multiple": true,
+                    "newLine": true,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 8
+                },
+                "maxResults": {
+                    "type": "number",
+                    "label": "maxResults",
+                    "help": "maxResultsHelp",
+                    "min": 1,
+                    "max": 1000,
+                    "newLine": true,
+                    "xs": 12,
+                    "sm": 6,
+                    "md": 3
+                }
+            }
+        },
+        "notificationTab": {
+            "type": "panel",
+            "label": "notificationTab",
+            "items": {
+                "notifyEnabled": {
+                    "type": "checkbox",
+                    "label": "notifyEnabled",
+                    "newLine": true,
+                    "xs": 12
+                },
+                "notifyInstance": {
+                    "type": "instance",
+                    "label": "notifyInstance",
+                    "help": "notifyInstanceHelp",
+                    "adapters": [
+                        "telegram",
+                        "pushover",
+                        "signal-cmd",
+                        "email",
+                        "whatsapp-cmb",
+                        "matrix-bot",
+                        "pushsafer",
+                        "pushbullet",
+                        "ntfy",
+                        "gotify",
+                        "discord",
+                        "synochat",
+                        "sms",
+                        "webhook"
+                    ],
+                    "allowDeactivate": true,
+                    "hidden": "!data.notifyEnabled",
+                    "newLine": true,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 8
+                },
+                "notifyRecipient": {
+                    "type": "text",
+                    "label": "notifyRecipient",
+                    "help": "notifyRecipientHelp",
+                    "hidden": "!data.notifyEnabled",
+                    "newLine": true,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 8
+                },
+                "onlyOnChange": {
+                    "type": "checkbox",
+                    "label": "onlyOnChange",
+                    "help": "onlyOnChangeHelp",
+                    "hidden": "!data.notifyEnabled",
+                    "newLine": true,
+                    "xs": 12
+                },
+                "repeatIntervalDays": {
+                    "type": "number",
+                    "label": "repeatIntervalDays",
+                    "help": "repeatIntervalDaysHelp",
+                    "min": 1,
+                    "max": 365,
+                    "hidden": "!data.notifyEnabled",
+                    "newLine": true,
+                    "xs": 12,
+                    "sm": 6,
+                    "md": 3
+                }
+            }
+        }
+    }
+}

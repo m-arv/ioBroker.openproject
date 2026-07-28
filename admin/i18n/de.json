@@ -1,0 +1,52 @@
+{
+    "openproject adapter settings": "OpenProject – Einstellungen",
+
+    "connectionTab": "Verbindung",
+    "queryTab": "Abfrage",
+    "notificationTab": "Benachrichtigung",
+
+    "url": "Basis-URL der OpenProject-Instanz",
+    "urlHelp": "z. B. http://openproject.intern oder https://projekte.example.com",
+    "urlInvalid": "Bitte eine gültige URL mit http:// oder https:// eingeben",
+
+    "apiToken": "API-Token",
+    "apiTokenHelp": "Erzeugbar unter „Mein Konto\" → „Zugriffstoken\" → „API\" in OpenProject. Wird verschlüsselt gespeichert.",
+
+    "ignoreCertificateErrors": "Zertifikatsprüfung deaktivieren",
+    "ignoreCertificateErrorsHelp": "Nur aktivieren, wenn die Instanz ein selbstsigniertes Zertifikat verwendet",
+    "ignoreCertificateErrorsWarning": "Achtung: Bei deaktivierter Zertifikatsprüfung kann sich ein Angreifer zwischen Adapter und Server schalten (Man-in-the-Middle) und Daten inkl. API-Token mitlesen oder verändern. Nur in vertrauenswürdigen, internen Netzen verwenden.",
+
+    "requestTimeout": "Timeout (Sekunden)",
+    "requestTimeoutHelp": "Wie lange auf eine Antwort von OpenProject gewartet wird, bevor abgebrochen wird",
+
+    "testConnectionHint": "Funktioniert nur, während die Instanz läuft: kurz nachdem diese Konfiguration gespeichert wurde (die Instanz startet dann automatisch für einige Minuten) oder direkt nach einem planmäßigen Lauf. Ist der Button ausgegraut, läuft die Instanz gerade nicht.",
+    "testConnection": "Verbindung testen",
+    "testConnectionSuccess": "Verbindung erfolgreich! %s",
+    "testConnectionErrorNoUrl": "Keine URL eingetragen",
+    "testConnectionErrorNoToken": "Kein API-Token eingetragen",
+    "testConnectionErrorAuth": "Authentifizierung fehlgeschlagen (401/403) – API-Token prüfen",
+    "testConnectionErrorNotFound": "API-Endpunkt nicht gefunden (404) – URL prüfen",
+    "testConnectionErrorTimeout": "Zeitüberschreitung – Instanz nicht erreichbar oder Timeout zu niedrig",
+    "testConnectionErrorNetwork": "Netzwerkfehler: %s",
+
+    "scheduleHint": "Der Zeitplan für die Ausführung wird nicht hier, sondern im Reiter „Zeitplan\" dieser Instanz eingestellt (Cron-Ausdruck). Voreingestellt: werktags 07:30 Uhr.",
+    "warnDays": "Vorwarnzeit (Tage)",
+    "warnDaysHelp": "Arbeitspakete, die innerhalb dieser Anzahl Tage fällig werden, gelten als „bald fällig\"",
+    "onlyAssignedToMe": "Nur mir zugewiesene Arbeitspakete",
+    "onlyAssignedToMeHelp": "Bezieht sich auf den Benutzer, dem der API-Token gehört",
+    "projectsHint": "Leer lassen, um alle Projekte einzubeziehen. Die Liste lädt live aus OpenProject und benötigt eine laufende Instanz (siehe Hinweis zu „Verbindung testen\").",
+    "projects": "Auf Projekte einschränken",
+    "projectsHelp": "Mehrfachauswahl; ohne Auswahl werden alle Projekte berücksichtigt",
+    "maxResults": "Maximale Anzahl Arbeitspakete",
+    "maxResultsHelp": "Begrenzt, wie viele offene Arbeitspakete pro Lauf abgerufen werden",
+
+    "notifyEnabled": "Benachrichtigungen aktivieren",
+    "notifyInstance": "Ziel-Adapterinstanz",
+    "notifyInstanceHelp": "Instanz eines Messaging-Adapters, über den benachrichtigt werden soll",
+    "notifyRecipient": "Empfänger / Chat-ID",
+    "notifyRecipientHelp": "Optional: überschreibt den Standard-Empfänger der Ziel-Adapterinstanz, falls diese das unterstützt",
+    "onlyOnChange": "Nur bei Änderungen erneut benachrichtigen",
+    "onlyOnChangeHelp": "Wenn aktiv, wird ein bereits gemeldetes Arbeitspaket nur bei geändertem Status oder Fälligkeitsdatum erneut gemeldet – die Wiederholungssperre wird dann ignoriert",
+    "repeatIntervalDays": "Wiederholungssperre (Tage)",
+    "repeatIntervalDaysHelp": "So lange wird ein bereits gemeldetes, unverändertes Arbeitspaket nicht erneut gemeldet"
+}

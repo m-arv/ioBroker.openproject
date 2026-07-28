@@ -1,0 +1,42 @@
+{
+    "cli": true,
+    "adapterName": "openproject",
+    "title": "OpenProject",
+    "description": "Überwacht überfällige und demnächst fällige Arbeitspakete in OpenProject und stellt sie als States bereit",
+    "keywords": "openproject, project management, work packages, tasks",
+    "expert": "yes",
+    "features": [
+        "adapter"
+    ],
+    "adminFeatures": [],
+    "type": "communication",
+    "startMode": "schedule",
+    "scheduleStartOnChange": "no",
+    "connectionType": "local",
+    "dataSource": "poll",
+    "connectionIndicator": "yes",
+    "language": "JavaScript",
+    "nodeVersion": "20",
+    "adminUi": "json",
+    "tabReact": "no",
+    "tools": [
+        "ESLint",
+        "type checking"
+    ],
+    "eslintConfig": "official",
+    "releaseScript": "yes",
+    "devServer": "local",
+    "devServerPort": 8081,
+    "indentation": "Space (4)",
+    "quotes": "single",
+    "authorName": "m-arv",
+    "authorGithub": "m-arv",
+    "authorEmail": "79217104+m-arv@users.noreply.github.com",
+    "gitRemoteProtocol": "HTTPS",
+    "gitCommit": "no",
+    "defaultBranch": "main",
+    "license": "MIT License",
+    "dependabot": "yes",
+    "replay": "/private/tmp/claude-501/-Users-marvinstoppelkotter/b2235a1d-15a3-4c5f-ab6d-c9e59f9c423b/scratchpad/answers.json",
+    "creatorVersion": "3.1.5"
+}

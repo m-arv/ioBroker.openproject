@@ -1,0 +1,128 @@
+{
+    "common": {
+        "name": "openproject",
+        "version": "0.0.1",
+        "news": {
+            "0.0.1": {
+                "en": "initial release",
+                "de": "Erstveröffentlichung",
+                "ru": "Начальная версия",
+                "pt": "lançamento inicial",
+                "nl": "Eerste uitgave",
+                "fr": "Première version",
+                "it": "Versione iniziale",
+                "es": "Versión inicial",
+                "pl": "Pierwsze wydanie",
+                "uk": "Початкова версія",
+                "zh-cn": "首次出版"
+            }
+        },
+        "titleLang": {
+            "en": "OpenProject",
+            "de": "OpenProject",
+            "ru": "OpenProject",
+            "pt": "Projeto aberto",
+            "nl": "OpenProject",
+            "fr": "Projet ouvert",
+            "it": "OpenProject",
+            "es": "Proyecto abierto",
+            "pl": "Otwórz projekt",
+            "uk": "OpenProject",
+            "zh-cn": "开放项目"
+        },
+        "desc": {
+            "en": "Monitors overdue and upcoming OpenProject work packages and exposes them as states, with optional notifications",
+            "de": "Überwacht überfällige und bald fällige Arbeitspakete in OpenProject und stellt sie als States bereit, optional mit Benachrichtigungen",
+            "ru": "Monitors overdue and upcoming OpenProject work packages and exposes them as states, with optional notifications",
+            "pt": "Monitors overdue and upcoming OpenProject work packages and exposes them as states, with optional notifications",
+            "nl": "Monitors overdue and upcoming OpenProject work packages and exposes them as states, with optional notifications",
+            "fr": "Monitors overdue and upcoming OpenProject work packages and exposes them as states, with optional notifications",
+            "it": "Monitors overdue and upcoming OpenProject work packages and exposes them as states, with optional notifications",
+            "es": "Monitors overdue and upcoming OpenProject work packages and exposes them as states, with optional notifications",
+            "pl": "Monitors overdue and upcoming OpenProject work packages and exposes them as states, with optional notifications",
+            "uk": "Monitors overdue and upcoming OpenProject work packages and exposes them as states, with optional notifications",
+            "zh-cn": "Monitors overdue and upcoming OpenProject work packages and exposes them as states, with optional notifications"
+        },
+        "authors": [
+            "m-arv <79217104+m-arv@users.noreply.github.com>"
+        ],
+        "keywords": "openproject, project management, work packages, tasks",
+        "licenseInformation": {
+            "type": "free",
+            "license": "MIT"
+        },
+        "platform": "Javascript/Node.js",
+        "icon": "openproject.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/m-arv/ioBroker.openproject/main/admin/openproject.png",
+        "readme": "https://github.com/m-arv/ioBroker.openproject/blob/main/README.md",
+        "loglevel": "info",
+        "tier": 3,
+        "mode": "schedule",
+        "schedule": "30 7 * * 1-5",
+        "allowInit": true,
+        "type": "communication",
+        "compact": true,
+        "messagebox": true,
+        "connectionType": "local",
+        "dataSource": "poll",
+        "adminUI": {
+            "config": "json"
+        },
+        "dependencies": [
+            {
+                "js-controller": ">=6.0.11"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=7.0.23"
+            }
+        ],
+        "protectedNative": [
+            "apiToken"
+        ],
+        "encryptedNative": [
+            "apiToken"
+        ]
+    },
+    "native": {
+        "url": "",
+        "apiToken": "",
+        "ignoreCertificateErrors": false,
+        "requestTimeout": 15,
+        "warnDays": 3,
+        "onlyAssignedToMe": true,
+        "projects": [],
+        "maxResults": 100,
+        "notifyEnabled": false,
+        "notifyInstance": "",
+        "notifyRecipient": "",
+        "onlyOnChange": false,
+        "repeatIntervalDays": 7
+    },
+    "objects": [],
+    "instanceObjects": [
+        {
+            "_id": "info",
+            "type": "channel",
+            "common": {
+                "name": "Information"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.connection",
+            "type": "state",
+            "common": {
+                "role": "indicator.connected",
+                "name": "Device or service connected",
+                "type": "boolean",
+                "read": true,
+                "write": false,
+                "def": false
+            },
+            "native": {}
+        }
+    ]
+}
