@@ -46,7 +46,7 @@
         "authors": [
             "m-arv <79217104+m-arv@users.noreply.github.com>"
         ],
-        "keywords": "openproject, project management, work packages, tasks",
+        "keywords": ["openproject", "project management", "work packages", "tasks"],
         "licenseInformation": {
             "type": "free",
             "license": "MIT"
@@ -76,16 +76,16 @@
         ],
         "globalDependencies": [
             {
-                "admin": ">=7.0.23"
+                "admin": ">=7.6.20"
             }
-        ],
-        "protectedNative": [
-            "apiToken"
-        ],
-        "encryptedNative": [
-            "apiToken"
         ]
     },
+    "protectedNative": [
+        "apiToken"
+    ],
+    "encryptedNative": [
+        "apiToken"
+    ],
     "native": {
         "url": "",
         "apiToken": "",
