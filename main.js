@@ -231,7 +231,7 @@ function addDaysToDateString(dateStr, days) {
  * local date (see tools/check-api.js output for why OpenProject's own relative dueDate
  * operators are not used for this).
  *
- * @param {{id: number, subject: string, dueDate: string|null, status: string, project: string, url: string}[]} workPackages
+ * @param {{id: number, subject: string, dueDate: string, status: string, project: string, url: string}[]} workPackages
  * @param {number} warnDays
  */
 function classifyByDueDate(workPackages, warnDays) {
@@ -273,7 +273,7 @@ function classifyByDueDate(workPackages, warnDays) {
     return { overdue, upcoming, all };
 }
 
-/** @returns {Record<string, {notifiedAt: string, status: string, dueDate: string|null}>} */
+/** @returns {Record<string, {notifiedAt: string, status: string, dueDate: string}>} */
 function emptyNotifiedState() {
     return {};
 }
@@ -284,8 +284,8 @@ function emptyNotifiedState() {
  * - status or dueDate changed since it was last reported -> yes, regardless of the repeat lock
  * - otherwise -> only if onlyOnChange is disabled AND the repeat lock has expired
  *
- * @param {{status: string, dueDate: string|null}} wp
- * @param {{notifiedAt: string, status: string, dueDate: string|null}|undefined} record
+ * @param {{status: string, dueDate: string}} wp
+ * @param {{notifiedAt: string, status: string, dueDate: string}|undefined} record
  * @param {boolean} onlyOnChange
  * @param {number} repeatIntervalDays
  * @param {number} nowMs
@@ -306,8 +306,8 @@ function shouldNotify(wp, record, onlyOnChange, repeatIntervalDays, nowMs) {
 }
 
 /**
- * @param {{id: number, subject: string, dueDate: string|null, project: string, url: string}[]} overdue
- * @param {{id: number, subject: string, dueDate: string|null, project: string, url: string}[]} upcoming
+ * @param {{id: number, subject: string, dueDate: string, project: string, url: string}[]} overdue
+ * @param {{id: number, subject: string, dueDate: string, project: string, url: string}[]} upcoming
  */
 function buildNotificationText(overdue, upcoming) {
     const lines = [];
@@ -365,8 +365,8 @@ class Openproject extends utils.Adapter {
      * for a work package after sendTo did not throw, so a delivery failure is retried next run
      * instead of being silently dropped.
      *
-     * @param {{id: number, subject: string, dueDate: string|null, status: string, project: string, url: string}[]} overdue
-     * @param {{id: number, subject: string, dueDate: string|null, status: string, project: string, url: string}[]} upcoming
+     * @param {{id: number, subject: string, dueDate: string, status: string, project: string, url: string}[]} overdue
+     * @param {{id: number, subject: string, dueDate: string, status: string, project: string, url: string}[]} upcoming
      */
     async _notify(overdue, upcoming) {
         if (!this.config.notifyInstance) {
@@ -418,7 +418,7 @@ class Openproject extends utils.Adapter {
         await this._writeNotifiedState(prunedState);
     }
 
-    /** @returns {Promise<Record<string, {notifiedAt: string, status: string, dueDate: string|null}>>} */
+    /** @returns {Promise<Record<string, {notifiedAt: string, status: string, dueDate: string}>>} */
     async _readNotifiedState() {
         const stateObj = await this.getStateAsync('state.notifiedIds');
         if (!stateObj || !stateObj.val) {
@@ -432,7 +432,7 @@ class Openproject extends utils.Adapter {
         }
     }
 
-    /** @param {Record<string, {notifiedAt: string, status: string, dueDate: string|null}>} state */
+    /** @param {Record<string, {notifiedAt: string, status: string, dueDate: string}>} state */
     async _writeNotifiedState(state) {
         await this.setStateAsync('state.notifiedIds', JSON.stringify(state), true);
     }

@@ -27,7 +27,7 @@ Der Adapter ist (noch) nicht im offiziellen ioBroker-Repository und nicht auf np
 https://github.com/m-arv/ioBroker.openproject/tarball/main
 ```
 
-**Wichtig, da das Repository aktuell privat ist:** Diese URL lässt sich nur laden, wenn dein ioBroker-Host Zugriff darauf hat. Entweder machst du das Repository auf GitHub öffentlich (es enthält keine Geheimnisse — Token/URL werden ausschließlich verschlüsselt in der ioBroker-Objektdatenbank gespeichert, nie im Code), oder du nutzt eine URL mit eingebettetem GitHub-Token, z. B. `https://<TOKEN>@github.com/m-arv/ioBroker.openproject.git`. Letzteres bitte nur mit einem eng begrenzten, jederzeit widerrufbaren Token tun.
+Das Repository ist öffentlich, die URL funktioniert also ohne weitere Authentifizierung. Falls du es später wieder auf privat stellst, brauchst du stattdessen eine URL mit eingebettetem GitHub-Token, z. B. `https://<TOKEN>@github.com/m-arv/ioBroker.openproject.git` (nur mit einem eng begrenzten, jederzeit widerrufbaren Token).
 
 Nach der Installation die Instanz `openproject.0` anlegen und konfigurieren (siehe unten).
 
@@ -90,18 +90,22 @@ Jeder Eintrag in `overdue.list`/`upcoming.list`/`all.list` hat die Form:
 { "id": 123, "subject": "Terrasse fertigstellen", "dueDate": "2026-08-01", "status": "Neu", "project": "Garten", "url": "http://openproject.intern/work_packages/123" }
 ```
 
+Arbeitspakete ohne Fälligkeitsdatum haben `"dueDate": ""` (leerer String, nicht `null`) — das ist bewusst so gewählt: gegen eine echte VIS-2-Instanz getestet, rendert ein JSON-`null` in gängigen JSON-Table-Widgets wörtlich als Text "null", während ein leerer String korrekt als leer erkannt wird und sich per Widget-Einstellung (z. B. "Platzhalter wenn Zeile leer ist" → `–`) sauber ersetzen lässt.
+
 **Zum Konzept „Rolle":** Die `role` eines States sagt Visualisierungen (VIS) und anderen Adaptern, *wie* ein Wert zu interpretieren ist — unabhängig vom technischen Datentyp. `value` ist z. B. eine generische Zahl, `indicator.connected` speziell ein Verbindungsstatus (den VIS z. B. automatisch mit einem Ampel-Symbol darstellen kann), `json` markiert einen String als maschinenlesbare Struktur. VIS-Widgets filtern beim Auswählen eines Datenpunkts oft nach Rolle, deshalb lohnt es sich, keine erfundenen Rollennamen zu verwenden, sondern die [offizielle Liste](https://www.iobroker.net/#en/documentation/dev/stateroles.md).
 
 Verwaiste States (z. B. nach einem künftigen Umbau des Objektbaums) werden bei jedem Adapterstart automatisch entfernt.
 
 ## Beispiel für eine VIS-Nutzung
 
-- Ein Text-/Wert-Widget auf `openproject.0.overdue.count` zeigt die Anzahl überfälliger Arbeitspakete als einfache Kachel/Badge.
-- Für eine Liste: `overdue.list` ist ein JSON-String (kein natives VIS-Array-Binding). Zwei praktikable Wege:
-  1. Ein Widget-Typ, der JSON-Strings direkt rendern kann (z. B. ein "JSON-Table"/"Raw HTML"-Widget deiner VIS-Variante, sofern vorhanden), oder
-  2. Ein kleines Skript in ioBroker.javascript, das `overdue.list` bei Änderung parst und in einzelne, nummerierte States (`0.subject`, `0.dueDate`, …) zerlegt, die klassische VIS-Widgets direkt binden können.
+- Ein Text-/Wert-Widget auf `openproject.0.overdue.count` zeigt die Anzahl überfälliger Arbeitspakete als einfache Kachel/Badge — jedes VIS-Widget, das einen einzelnen State binden kann, funktioniert hier direkt.
+- Für eine Liste (`overdue.list`/`upcoming.list`/`all.list`, jeweils ein JSON-Array als String): Die meisten VIS-Varianten haben ein Widget, das JSON-Arrays direkt in Tabellenspalten zerlegt, ganz ohne Skript. **Für VIS-2 konkret verifiziert:**
+  1. Widget **"JSON Table"** (Set `vis-inventwo`, alternativ `hkt-JSON-Table` aus `vis-homekittiles`) aufs Dashboard ziehen
+  2. **Objekt ID** → z. B. `openproject.0.all.list`
+  3. **Spaltenanzahl** setzen, pro Spalte unter "Tabellenspalte [n]": **Attribut in JSON** = Feldname (`subject`, `dueDate`, `status`, `project`, `url`), **Spaltenüberschrift** = Anzeigetext
+  4. Optional pro Spalte **"Platzhalter wenn Zeile leer ist"** setzen (z. B. `–`) — funktioniert nur bei leeren Strings, siehe Hinweis zu `dueDate` oben
 
-Ich habe hierfür keine laufende VIS-Instanz zur Verfügung gehabt und konnte keinen konkreten Widget-Typ live verifizieren — siehe „Annahmen" unten.
+Falls du ein anderes VIS (klassisches VIS, Jarvis, …) nutzt: Prinzip ist identisch, Widget-Name und genaue Einstellungen unterscheiden sich — das habe ich nicht verifiziert, siehe „Annahmen" unten.
 
 ## Troubleshooting
 
@@ -161,7 +165,7 @@ Ehrlich und vollständig, damit nichts stillschweigend erfunden wurde:
 6. **Liste der Ziel-Adapter** in der Instanzauswahl (`admin/jsonConfig.json`, `notifyInstance`) ist eine kuratierte Auswahl gängiger Messaging-Adapter, keine vollständige Liste aller existierenden. Bei Bedarf im Quelltext ergänzen.
 7. **Übersetzungen:** Nur Deutsch und Englisch sind inhaltlich gepflegt (wie beauftragt). Die übrigen neun von `@iobroker/create-adapter` angelegten Sprachen enthalten den englischen Text als Platzhalter statt kaputter Maschinenübersetzung.
 8. **Adapter-Checker:** Alle behebbaren Befunde wurden behoben (siehe Commit-Historie). Bewusst offen gelassen, weil für ein privates, nicht veröffentlichtes Projekt nicht zutreffend: Paket nicht auf npm, kein Git-Tag für 0.0.1, kein `deploy`-Job im CI-Workflow.
-9. **Repository ist privat** (wie besprochen). Für "Eigene Installation aus URL" ist das eine echte Einschränkung, siehe Abschnitt „Installation" oben — Entscheidung (öffentlich machen vs. Token-URL) liegt bei dir.
+9. **Repository ist öffentlich** (auf deinen Wunsch geändert, ursprünglich privat). Enthält keine Geheimnisse — URL/Token liegen ausschließlich verschlüsselt in der ioBroker-Objektdatenbank.
 10. Keine erfundenen API-Parameter, Versionsnummern oder JSON-Config-Felder — alles in dieser README und im Code Genannte wurde entweder gegen die echte OpenProject-API, den echten dev-server/Admin oder den offiziellen `ioBroker/json-config`-Quellcode verifiziert; die einzigen Ausnahmen sind explizit oben als Annahme gekennzeichnet.
 
 ## License
