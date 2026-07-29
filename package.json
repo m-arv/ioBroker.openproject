@@ -9,13 +9,19 @@
   "contributors": [],
   "homepage": "https://github.com/m-arv/ioBroker.openproject",
   "license": "MIT",
-  "keywords": ["openproject", "project management", "work packages", "tasks", "ioBroker"],
+  "keywords": [
+    "openproject",
+    "project management",
+    "work packages",
+    "tasks",
+    "ioBroker"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/m-arv/ioBroker.openproject.git"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=20"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^3.4.3",
@@ -30,9 +36,9 @@
     "@iobroker/dev-server": "^0.8.0",
     "@iobroker/eslint-config": "^2.3.4",
     "@iobroker/testing": "^5.3.0",
-    "@tsconfig/node22": "^22.0.5",
+    "@tsconfig/node20": "^20.1.9",
     "@types/iobroker": "npm:@iobroker/types@^7.2.2",
-    "@types/node": "^22.20.1",
+    "@types/node": "^20.19.43",
     "typescript": "~5.9.3"
   },
   "main": "main.js",
