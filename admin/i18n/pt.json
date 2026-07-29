@@ -32,6 +32,7 @@
     "projectsHelp": "Multi-select; if nothing is selected, all projects are included",
     "maxResults": "Maximum number of work packages",
     "maxResultsHelp": "Limits how many open work packages are fetched per run",
+    "allListHint": "In addition to \"overdue\" and \"due soon\", the adapter always provides ALL open work packages matching the criteria above under openproject.0.all.list/all.count - regardless of whether a due date is set at all. Useful if work packages are initially tracked as a plain to-do list without dates.",
     "notifyEnabled": "Enable notifications",
     "notifyInstance": "Target adapter instance",
     "notifyInstanceHelp": "Instance of a messaging adapter to notify through",

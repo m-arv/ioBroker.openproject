@@ -81,9 +81,11 @@ Alle States liegen unter `openproject.0.*`:
 | `overdue.list` | string | `json` | JSON-Array überfälliger Arbeitspakete |
 | `upcoming.count` | number | `value` | Anzahl bald fälliger Arbeitspakete |
 | `upcoming.list` | string | `json` | JSON-Array bald fälliger Arbeitspakete |
+| `all.count` | number | `value` | Anzahl **aller** offenen Arbeitspakete (nach Zuweisung/Projekt gefiltert), unabhängig vom Fälligkeitsdatum |
+| `all.list` | string | `json` | JSON-Array aller offenen Arbeitspakete, inkl. solcher ohne Fälligkeitsdatum — praktisch, wenn Arbeitspakete zunächst als reine ToDo-Liste ohne Datum geführt werden. Sortierung: fällige zuerst (aufsteigend), Arbeitspakete ohne Datum am Ende |
 | `state.notifiedIds` | string | `json` | intern, für die Wiederholungssperre — nur im Experten-Modus des Objektbaums sichtbar |
 
-Jeder Eintrag in `overdue.list`/`upcoming.list` hat die Form:
+Jeder Eintrag in `overdue.list`/`upcoming.list`/`all.list` hat die Form:
 ```json
 { "id": 123, "subject": "Terrasse fertigstellen", "dueDate": "2026-08-01", "status": "Neu", "project": "Garten", "url": "http://openproject.intern/work_packages/123" }
 ```
@@ -145,6 +147,7 @@ Nützliche Scripts (`npm run <name>`):
 
 ### 0.0.1 (2026-07-28)
 * (m-arv) Initial release
+* (m-arv) Add `all.count`/`all.list`: all open work packages regardless of due date, for work packages tracked as a plain to-do list
 
 ## Annahmen und offene Punkte
 

@@ -128,6 +128,35 @@ function buildObjectDefinitions() {
             },
             native: {},
         },
+        all: {
+            type: 'channel',
+            common: { name: 'All work packages, regardless of due date' },
+            native: {},
+        },
+        'all.count': {
+            type: 'state',
+            common: {
+                name: 'Number of work packages (all, regardless of due date)',
+                type: 'number',
+                role: 'value',
+                read: true,
+                write: false,
+                def: 0,
+            },
+            native: {},
+        },
+        'all.list': {
+            type: 'state',
+            common: {
+                name: 'Work packages (all, regardless of due date)',
+                type: 'string',
+                role: 'json',
+                read: true,
+                write: false,
+                def: '[]',
+            },
+            native: {},
+        },
         state: {
             type: 'channel',
             common: { name: 'Internal state', expert: true },
@@ -195,10 +224,12 @@ function addDaysToDateString(dateStr, days) {
 
 /**
  * Splits open work packages into "overdue" (due date before today) and "upcoming" (due date
- * within warnDays from today, today included). Work packages without a due date are ignored -
- * they can be neither overdue nor "soon due". This runs entirely client-side against the
- * adapter host's local date (see tools/check-api.js output for why OpenProject's own relative
- * dueDate operators are not used for this).
+ * within warnDays from today, today included). Work packages without a due date end up in
+ * neither - they can't be "overdue" or "soon due" - but are still returned as "all", together
+ * with every other work package, for adapter users who track work packages as a plain to-do
+ * list and add due dates only later. This runs entirely client-side against the adapter host's
+ * local date (see tools/check-api.js output for why OpenProject's own relative dueDate
+ * operators are not used for this).
  *
  * @param {{id: number, subject: string, dueDate: string|null, status: string, project: string, url: string}[]} workPackages
  * @param {number} warnDays
@@ -224,7 +255,22 @@ function classifyByDueDate(workPackages, warnDays) {
     overdue.sort(byDueDateAsc);
     upcoming.sort(byDueDateAsc);
 
-    return { overdue, upcoming };
+    // "all": every fetched work package, due-dated ones first (soonest due first), work
+    // packages without a due date last.
+    const all = [...workPackages].sort((a, b) => {
+        if (!a.dueDate && !b.dueDate) {
+            return 0;
+        }
+        if (!a.dueDate) {
+            return 1;
+        }
+        if (!b.dueDate) {
+            return -1;
+        }
+        return byDueDateAsc(a, b);
+    });
+
+    return { overdue, upcoming, all };
 }
 
 /** @returns {Record<string, {notifiedAt: string, status: string, dueDate: string|null}>} */
@@ -401,12 +447,14 @@ class Openproject extends utils.Adapter {
                 maxResults: this.config.maxResults,
             });
 
-            const { overdue, upcoming } = classifyByDueDate(workPackages, this.config.warnDays);
+            const { overdue, upcoming, all } = classifyByDueDate(workPackages, this.config.warnDays);
 
             await this.setStateAsync('overdue.count', overdue.length, true);
             await this.setStateAsync('overdue.list', JSON.stringify(overdue), true);
             await this.setStateAsync('upcoming.count', upcoming.length, true);
             await this.setStateAsync('upcoming.list', JSON.stringify(upcoming), true);
+            await this.setStateAsync('all.count', all.length, true);
+            await this.setStateAsync('all.list', JSON.stringify(all), true);
 
             if (this.config.notifyEnabled) {
                 await this._notify(overdue, upcoming);

@@ -39,6 +39,7 @@
     "projectsHelp": "Mehrfachauswahl; ohne Auswahl werden alle Projekte berücksichtigt",
     "maxResults": "Maximale Anzahl Arbeitspakete",
     "maxResultsHelp": "Begrenzt, wie viele offene Arbeitspakete pro Lauf abgerufen werden",
+    "allListHint": "Zusätzlich zu „überfällig\" und „bald fällig\" stellt der Adapter unter openproject.0.all.list/all.count IMMER alle offenen Arbeitspakete bereit, die den obigen Kriterien entsprechen – unabhängig davon, ob überhaupt ein Fälligkeitsdatum gesetzt ist. Praktisch, wenn Arbeitspakete zunächst als reine ToDo-Liste ohne Datum geführt werden.",
 
     "notifyEnabled": "Benachrichtigungen aktivieren",
     "notifyInstance": "Ziel-Adapterinstanz",
